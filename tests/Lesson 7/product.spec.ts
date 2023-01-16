@@ -34,11 +34,13 @@ test('test_addproduct', async ({ page, context }) => {
         await productPage.verifyProduct({ context });
     })
 })
-test.afterEach(async ({page}) => {
-    const productPage = new ProductPage(page);
-    await productPage.navigateToMenu("Products");
-    await productPage.page.waitForTimeout(5 * 1000);
-    await productPage.deleteNewProduct();
+test.afterEach(async ({ page }) => {
+    await test.step('Delete product', async () => {
+        const productPage = new ProductPage(page);
+        await productPage.navigateToMenu("Products");
+        await productPage.page.waitForTimeout(5 * 1000);
+        await productPage.deleteNewProduct();
+    })
 })
 
 
@@ -49,6 +51,4 @@ test.afterEach(async ({page}) => {
 
 
 
-    // test.afterEach(async ()=> {
-    //     //delete product
-    // })
+
